@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>송연이의 할아버지 건강 지킴이 식단 랜덤박스</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6; /* 깨끗한 블루 */
+            --primary-hover: #1d4ed8;
+            --accent-orange: #f97316;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .banner {
+            max-width: 1000px;
+            margin: 0 auto 30px auto;
+            background: #ffffff;
+            padding: 16px;
+            text-align: center;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--text-main);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .clock-box {
+            text-align: right;
+        }
+        #date-display {
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+        #clock-display {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .medical-ref {
+            font-size: 14px;
+            color: var(--text-sub);
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+        .medical-ref strong {
+            color: var(--text-main);
+        }
+
+        .main-btn-area {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .btn-primary {
+            background-color: var(--text-main);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            background-color: #1e293b;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.15);
+        }
+
+        .diet-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 45px;
+        }
+
+        .diet-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            min-height: 460px;
+            transition: transform 0.2s ease;
+        }
+        .diet-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+        }
+
+        .diet-card h2 {
+            margin-top: 0;
+            color: var(--text-main);
+            font-size: 20px;
+            font-weight: 700;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            flex-grow: 1;
+        }
+
+        .menu-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f8fafc;
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        .snack-box {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        .snack-box strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .snack-box span {
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+
+        .outing-section {
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 20px;
+            margin-bottom: 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .outing-content {
+            width: 75%;
+        }
+
+        .outing-content h3 {
+            margin: 0 0 10px 0;
+            color: var(--text-main);
+            font-size: 18px;
+            font-weight: 700;
+        }
+        #outing-display {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
+        .btn-refresh {
+            background: #f1f5f9;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn-refresh:hover {
+            background: #e2e8f0;
+        }
+
+        .memo-section {
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .memo-section h3 {
+            margin-top: 0;
+            color: var(--text-main);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .memo-form {
+            display: grid;
+            grid-template-columns: 1.2fr 1.2fr 2.5fr auto;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .memo-form input {
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-main);
+            background-color: #f8fafc;
+            transition: all 0.2s;
+        }
+        .memo-form input:focus {
+            outline: none;
+            border-color: var(--text-muted);
+            background-color: #ffffff;
+        }
+
+        .btn-add {
+            background: var(--text-main);
+            color: white;
+            border: none;
+            padding: 0 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .btn-add:hover {
+            background: #1e293b;
+        }
+
+        .memo-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .memo-table th, .memo-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .memo-table th {
+            background: #f8fafc;
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+        .memo-table td {
+            color: var(--text-sub);
+        }
+
+        .btn-delete {
+            color: #ef4444;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        @media (max-width: 768px) {
+            .diet-grid { grid-template-columns: 1fr; }
+            .memo-form { grid-template-columns: 1fr; }
+            .outing-section { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .outing-content { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="banner">
+    🤍 사랑하는 할머니, 할아버지 건강하세요 — 송연 올림 🤍
+</div>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>스마트 건강 식단 랜덤박스</h1>
+        </div>
+        <div class="clock-box">
+            <div id="date-display"></div>
+            <div id="clock-display"></div>
+        </div>
+    </header>
+
+    <div class="medical-ref">
+        <strong>[의학 기반 제철 영양 가이드라인]</strong><br>
+        본 프로그램은 실시간 날짜를 분석하여 현재 계절에 가장 안전하고 영양가 높은 제철 식재료를 자동으로 판별해 추천합니다. 대한당뇨병학회 및 미국심장/뇌졸중학회(AHA/ASA) 임상 가이드라인을 엄격히 준수하며, 혈당 스파이크를 유발하는 죽 조리법은 전면 배제하고 저염·저지방 복합 탄수화물식으로 구성되었습니다.
+    </div>
+
+    <div class="main-btn-area">
+        <button class="btn-primary" onclick="generateMenu()">현재 계절 맞춤 식단 추천받기</button>
+    </div>
+
+    <div class="diet-grid">
+        <div class="diet-card">
+            <h2>아침 식사</h2>
+            <ul class="menu-list" id="breakfast-list">
+                <li style="color:var(--text-muted); list-style:none;">버튼을 누르면 오늘의 맞춤 식단이 주어집니다.</li>
+            </ul>
+            <div class="snack-box">
+                <strong>오전 간식 (10:00)</strong>
+                <span id="morning-snack">-</span>
+            </div>
+        </div>
+
+        <div class="diet-card">
+            <h2>점심 식사</h2>
+            <ul class="menu-list" id="lunch-list">
+                <li style="color:var(--text-muted); list-style:none;">버튼을 누르면 오늘의 맞춤 식단이 주어집니다.</li>
+            </ul>
+            <div class="snack-box">
+                <strong>오후 간식 (15:00)</strong>
+                <span id="afternoon-snack">-</span>
+            </div>
+        </div>
+
+        <div class="diet-card">
+            <h2>저녁 식사</h2>
+            <ul class="menu-list" id="dinner-list">
+                <li style="color:var(--text-muted); list-style:none;">버튼을 누르면 오늘의 맞춤 식단이 주어집니다.</li>
+            </ul>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: auto; margin-bottom: 0; padding-top: 12px; border-top: 1px dashed var(--border-color);">
+                * 야간 혈당 조절 및 숙면을 위해 저녁 식사 후 취침 전에는 간식을 섭취하지 않습니다.
+            </p>
+        </div>
+    </div>
+
+    <div class="outing-section">
+        <div class="outing-content">
+            <h3>오늘의 추천 외식 메뉴</h3>
+            <div id="outing-display">할아버지 건강 상태(뇌경색·당뇨·고혈압)를 고려한 안전한 외식 메뉴 리스트입니다.</div>
+        </div>
+        <button class="btn-refresh" onclick="generateOuting()">다른 메뉴 보기 🔄</button>
+    </div>
+
+    <div class="memo-section">
+        <h3>할머니의 외식 가능 식당 메모장</h3>
+        <div class="memo-form">
+            <input type="text" id="m-name" placeholder="식당 이름">
+            <input type="text" id="m-loc" placeholder="식당 위치 (예: OO동)">
+            <input type="text" id="m-food" placeholder="주요 메뉴 및 메모">
+            <button class="btn-add" onclick="addMemo()">식당 저장 📌</button>
+        </div>
+        <table class="memo-table">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">식당명</th>
+                    <th style="width: 20%;">위치</th>
+                    <th style="width: 45%;">상세 메모</th>
+                    <th style="width: 10%;">삭제</th>
+                </tr>
+            </thead>
+            <tbody id="memo-body">
+                <tr>
+                    <td colspan="4" style="text-align:center; color:var(--text-muted);">등록된 식당이 없습니다. 안전했던 식당을 기록해 보세요!</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const seasonalMeals = {
+        spring: {
+            soup: ["봄 달래 된장국(싱겁게)", "쑥 들깨맑은국", "시금치 조개국", "냉이 토토 국"],
+            side: ["달래 나물무침", "봄동 겉절이(저염)", "두릅 숙회(초장 없이)", "취나물 볶음", "죽순 채소볶음"],
+            fruit: ["딸기 5알", "한라봉 1/4쪽", "키위 1개"]
+        },
+        summer: {
+            soup: ["7월 제철 근대국(저염)", "아욱 들깨맑은국", "애호박 새우젓국", "오이 미역냉국"],
+            side: ["가지 나물무침", "애호박 볶음", "고구마순 볶음", "양배추 쌈 + 저염강된장", "깻잎 지찜(짜지 않게)"],
+            fruit: ["방울토마토 10알", "참외 1/4쪽", "블루베리 20알", "수박 작은 1쪽(당 조절용)"]
+        },
+        autumn: {
+            soup: ["배추 시래기국", "무 맑은탕(소고기 소량)", "버섯 들깨탕", "토란국(맑게)"],
+            side: ["느타리버섯 구이", "토란대 나물", "연근 조림(덜 달게)", "우엉 잡채(면 없이 채소만)", "호박잎 쌈"],
+            fruit: ["사과 1/3쪽", "배 1/4쪽", "감 1/4쪽"]
+        },
+        winter: {
+            soup: ["동태 맑은탕", "매생이 굴국", "시래기 된장국", "홍합국(싱겁게)"],
+            side: ["시금치 나물", "남해초 무침", "브로콜리 두부무침", "파래 무침", "무나물 볶음"],
+            fruit: ["귤 1개", "사과 1/3쪽", "딸기 5알"]
+        },
+        common: {
+            rice: ["현미잡곡밥 2/3공기", "보리밥 2/3공기", "귀리잡곡밥 2/3공기", "수수밥 2/3공기", "콩나물 진밥 2/3공기", "발아현미밥 2/3공기"],
+            main: ["조기 구이 1토막", "가자미 찜(양념장 살짝)", "들기름 두부구이 2조각", "계란찜(당근,파 듬뿍)", "닭안심 파프리카 볶음", "돼지고기 살코기 수육 5점", "무염 고등어 구이", "오징어 숙회(레몬즙)", "소고기 샤브샤브살 채소찜", "훈제오리(기름 쫙 뺀 것) 4점", "삼치 구이 1토막", "계란말이(간 없이)"],
+            kimchi: ["백김치 3쪽", "오이소박이 2쪽(덜 절인 것)", "열무김치 약간", "무생채(식초 베이스)", "나박김치 건더기 위주"],
+            snack: ["호두 2알", "볶은 아몬드 5알", "무가당 두유 1팩", "저지방 우유 1컵", "캐슈넛 4알"]
+        }
+    };
+
+    const outingMenus = [
+        "<strong>[소고기 채소 샤브샤브]</strong><br>기름기 없는 소고기 우둔살과 청경채, 배추, 버섯을 소스 없이 가볍게 건져 드세요. 마지막 칼국수나 죽은 혈당을 급격히 올리므로 피하셔야 합니다.",
+        "<strong>[삼치 / 고등어 생선구이 정식]</strong><br>소금간을 치지 않고 구운 생선 속살 위주로 쌈채소와 함께 드세요. 껍질 부위는 포화지방이 많으므로 떼어내는 것이 좋습니다.",
+        "<strong>[보리밥 나물 쌈밥 정식]</strong><br>양념 고추장 대신 강된장을 새끼손톱만큼만 쌈에 발라 각종 제철 나물, 쌈채소 위주로 풍부한 식이섬유를 섭취하세요.",
+        "<strong>[하얀 순두부 / 모두부 백반]</strong><br>빨간 기름 양념이 들어간 찌개 대신 하얀 순두부나 모두부를 선택하세요. 저염 간장을 숟가락 끝에만 살짝 찍어 단백질을 보충합니다.",
+        "<strong>[한방 전복 삼계탕 (반계탕)]</strong><br>나트륨이 농축된 국물과 포화지방이 많은 닭껍질은 전면 제외하고, 푹 익은 부드러운 닭살코기 위주로 드시는 것이 안전합니다."
+    ];
+
+    function updateClock() {
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+        const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        document.getElementById('date-display').innerText = dateStr;
+        document.getElementById('clock-display').innerText = timeStr;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function getCurrentSeason() {
+        const month = new Date().getMonth() + 1;
+        if (month >= 3 && month <= 5) return 'spring';
+        if (month >= 6 && month <= 8) return 'summer';
+        if (month >= 9 && month <= 11) return 'autumn';
+        return 'winter';
+    }
+
+    function getRandom(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function generateMenu() {
+        const season = getCurrentSeason();
+        const currentData = seasonalMeals[season];
+        const common = seasonalMeals.common;
+
+        const makeMealList = () => {
+            return [
+                `🍚 ${getRandom(common.rice)}`,
+                `🍲 ${getRandom(currentData.soup)}`,
+                `🐟 ${getRandom(common.main)}`,
+                `🌿 ${getRandom(currentData.side)}`,
+                `🥬 ${getRandom(common.kimchi)}`
+            ];
+        };
+
+        const breakfast = makeMealList();
+        const lunch = makeMealList();
+        let dinner = makeMealList();
+        dinner.push(`🥗 ${getRandom(currentData.side)} (추가 채소찬)`);
+
+        renderUl('breakfast-list', breakfast);
+        renderUl('lunch-list', lunch);
+        renderUl('dinner-list', dinner);
+
+        const morningSnackCombo = `${getRandom(currentData.fruit)} + ${getRandom(common.snack)}`;
+        const afternoonSnackCombo = `${getRandom(currentData.fruit)} + ${getRandom(common.snack)}`;
+        
+        document.getElementById('morning-snack').innerText = morningSnackCombo;
+        document.getElementById('afternoon-snack').innerText = afternoonSnackCombo;
+    }
+
+    function renderUl(id, items) {
+        const ul = document.getElementById(id);
+        ul.innerHTML = "";
+        items.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = item;
+            ul.appendChild(li);
+        });
+    }
+
+    function generateOuting() {
+        document.getElementById('outing-display').innerHTML = getRandom(outingMenus);
+    }
+
+    let memos = JSON.parse(localStorage.getItem('grandmaMemosTable') || '[]');
+
+    function renderMemos() {
+        const body = document.getElementById('memo-body');
+        if (memos.length === 0) {
+            body.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">등록된 식당이 없습니다. 안전했던 식당을 기록해 보세요!</td></tr>`;
+            return;
+        }
+
+        body.innerHTML = memos.map((m, i) => `
+            <tr>
+                <td style="font-weight:bold; color:var(--text-main);">📍 ${m.name}</td>
+                <td>${m.loc}</td>
+                <td>${m.food}</td>
+                <td><button class="btn-delete" onclick="deleteMemo(${i})">삭제</button></td>
+            </tr>
+        `).join('');
+    }
+
+    function addMemo() {
+        const name = document.getElementById('m-name').value.trim();
+        const loc = document.getElementById('m-loc').value.trim() || "미기입";
+        const food = document.getElementById('m-food').value.trim() || "내용 없음";
+        
+        if(!name) {
+            alert("식당 이름을 입력해 주세요! 😊");
+            return;
+        }
+
+        memos.push({name, loc, food});
+        localStorage.setItem('grandmaMemosTable', JSON.stringify(memos));
+        renderMemos();
+        
+        document.getElementById('m-name').value = '';
+        document.getElementById('m-loc').value = '';
+        document.getElementById('m-food').value = '';
+    }
+
+    function deleteMemo(i) {
+        if(confirm("이 식당 기록을 삭제하시겠습니까?")) {
+            memos.splice(i, 1);
+            localStorage.setItem('grandmaMemosTable', JSON.stringify(memos));
+            renderMemos();
+        }
+    }
+
+    window.onload = function() {
+        renderMemos();
+    };
+</script>
+
+</body>
+</html>
